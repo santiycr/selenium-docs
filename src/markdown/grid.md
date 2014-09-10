@@ -1,6 +1,6 @@
-=============
-Selenium Grid
-=============
+## {
+  index: 0,
+}
 
 Selenium Grid is a smart proxy server that allows Selenium tests
 to route commands to remote web browser instances.  Its aim is to
@@ -16,15 +16,13 @@ Selenium Grid allows us to run tests in parallel on multiple machines,
 and to manage different browser versions and browser configurations
 centrally (instead of in each individual test).
 
-Pros and Cons
-=============
+## Pros and Cons
 
 Selenium Grid isn't a silver bullet.  It solves a subset of common
 delegation and distribution problems, but will for example not
 manage your infrastructure and might not suite your specific needs.
 
-Pros
-----
+### Pros
 
 Scale
 
@@ -55,8 +53,7 @@ Smart
   have two or more nodes registered, each pointing to a different
   version of the browser binary.
 
-Cons
-----
+### Cons
 
 Prompted input
 
@@ -73,8 +70,7 @@ Limited power
   Certain third party libraries have limitations that prevent them
   from being used in conjuction with Grid.
 
-What is a Hub and Node?
-=======================
+## What is a Hub and Node?
 
 A _hub_ is a central point from where your tests will be kicked
 off.  There will only be one hub in a grid and it's launched from
@@ -89,8 +85,7 @@ A node on Windows might have the capability of offering Internet
 Explorer as a browser option, whereas this wouldn't be possible on
 Linux or Mac.
 
-Rolling Your Own Grid
-=====================
+## Rolling Your Own Grid
 
 To use Selenium Grid you must maintain your own infrastructure for
 the nodes.  Without this infrastructure, Grid will not function.
@@ -104,8 +99,7 @@ on your own hardware.  This chapter will go into detail about the
 option of rolling your own grid, complete with its own node
 infrastructure.
 
-Quick Start
------------
+### Quick Start
 
 This example will show you how to start the Selenium 2 Hub, and
 register both a WebDriver node and a Selenium 1 RC legacy node.
@@ -158,21 +152,21 @@ go into more detail on how to provide node configuration files in
 step 2.
 
 
-.. code-block:: json
-
-   {"_comment" : "Configuration for Hub - hubConfig.json",
-    "host": ip,
-    "maxSessions": 5,
-    "port": 4444,
-    "cleanupCycle": 5000,
-    "timeout": 300000,
-    "newSessionWaitTimeout": -1,
-    "servlets": [],
-    "prioritizer": null,
-    "capabilityMatcher": "org.openqa.grid.internal.utils.DefaultCapabilityMatcher",
-    "throwOnCapabilityNotPresent": true,
-    "nodePolling": 180000,
-    "platform": "WINDOWS"}
+```js
+{"_comment" : "Configuration for Hub - hubConfig.json",
+ "host": ip,
+ "maxSessions": 5,
+ "port": 4444,
+ "cleanupCycle": 5000,
+ "timeout": 300000,
+ "newSessionWaitTimeout": -1,
+ "servlets": [],
+ "prioritizer": null,
+ "capabilityMatcher": "org.openqa.grid.internal.utils.DefaultCapabilityMatcher",
+ "throwOnCapabilityNotPresent": true,
+ "nodePolling": 180000,
+ "platform": "WINDOWS"}
+```
 
 Step 2: Start the nodes
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -211,32 +205,32 @@ configuration file::
 
 And here is an example of a _nodeConfig.json_ file:
 
-.. code-block:: json
-
-   {"capabilities": [{"browserName": "firefox",
-                      "acceptSslCerts": true,
-                      "javascriptEnabled": true,
-                      "takesScreenshot": false,
-                      "firefox_profile": "",
-                      "browser-version": "27",
-                      "platform": "WINDOWS",
-                      "maxInstances": 5,
-                      "firefox_binary": "",
-                      "cleanSession": true },
-                     {"browserName": "chrome",
-                      "maxInstances": 5,
-                      "platform": "WINDOWS",
-                      "webdriver.chrome.driver": "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe" },
-                     {"browserName": "internet explorer",
-                      "maxInstances": 1,
-                      "platform": "WINDOWS",
-                      "webdriver.ie.driver": "C:/Program Files (x86)/Internet Explorer/iexplore.exe" }],
-    "configuration": {"_comment" : "Configuration for Node",
-                      "cleanUpCycle": 2000,
-                      "timeout": 30000,
-                      "proxy": "org.openqa.grid.selenium.proxy.WebDriverRemoteProxy",
-                      "port": 5555,
-                      "host": ip,
-                      "register": true,
-                      "hubPort": 4444,
-                      "maxSessions": 5}}
+```js
+{"capabilities": [{"browserName": "firefox",
+                   "acceptSslCerts": true,
+                   "javascriptEnabled": true,
+                   "takesScreenshot": false,
+                   "firefox_profile": "",
+                   "browser-version": "27",
+                   "platform": "WINDOWS",
+                   "maxInstances": 5,
+                   "firefox_binary": "",
+                   "cleanSession": true },
+                  {"browserName": "chrome",
+                   "maxInstances": 5,
+                   "platform": "WINDOWS",
+                   "webdriver.chrome.driver": "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe" },
+                  {"browserName": "internet explorer",
+                   "maxInstances": 1,
+                   "platform": "WINDOWS",
+                   "webdriver.ie.driver": "C:/Program Files (x86)/Internet Explorer/iexplore.exe" }],
+ "configuration": {"_comment" : "Configuration for Node",
+                   "cleanUpCycle": 2000,
+                   "timeout": 30000,
+                   "proxy": "org.openqa.grid.selenium.proxy.WebDriverRemoteProxy",
+                   "port": 5555,
+                   "host": ip,
+                   "register": true,
+                   "hubPort": 4444,
+                   "maxSessions": 5}}
+```

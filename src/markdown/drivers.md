@@ -1,15 +1,18 @@
-=====================
-Driver Idiosyncrasies
-=====================
+{
+  title: "Driver Idiosyncrasies",
+  index: 0,
+}
 
 ## Shared capabilities
+
+TODO
 
 ## Driver specific capabilities
 
 ### Chromium
 
-Using Capabilities
--------------------
+#### Using Capabilities
+
 Capabilities are options that you can use to customize and configure a ChromeDriver session.
 
 There are currently two supported ways to pass these capabilities to ChromeDriver:
@@ -18,79 +21,80 @@ There are currently two supported ways to pass these capabilities to ChromeDrive
 You can create an instance of ChromeOptions, which has convenient methods for setting ChromeDriver-specific capabilities.
 You can pass the ChromeOptions object directly into the ChromeDriver constructor:
 
-.. code-block:: java
-
-   ChromeOptions options = new ChromeOptions();
-   options.addExtensions(new File("/path/to/extension.crx"));
-   ChromeDriver driver = new ChromeDriver(options);
+```java
+ChromeOptions options = new ChromeOptions();
+options.addExtensions(new File("/path/to/extension.crx"));
+ChromeDriver driver = new ChromeDriver(options);
+```
 
 Alternatively, you can add the options to an already existing
 DesiredCapabilities object, which is useful when need to specify other
 WebDriver capabilities not specific to ChromeDriver.
 
-.. code-block:: java
+```java
+DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+// Add the WebDriver proxy capability.
+Proxy proxy = new Proxy();
+proxy.setHttpProxy("myhttpproxy:3337");
+capabilities.setCapability("proxy", proxy);
 
-   DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-   // Add the WebDriver proxy capability.
-   Proxy proxy = new Proxy();
-   proxy.setHttpProxy("myhttpproxy:3337");
-   capabilities.setCapability("proxy", proxy);
+// Add ChromeDriver-specific capabilities through ChromeOptions.
+ChromeOptions options = new ChromeOptions();
+options.addExtensions(new File("/path/to/extension.crx"));
+capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 
-   // Add ChromeDriver-specific capabilities through ChromeOptions.
-   ChromeOptions options = new ChromeOptions();
-   options.addExtensions(new File("/path/to/extension.crx"));
-   capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-
-   ChromeDriver driver = new ChromeDriver(capabilities);
+ChromeDriver driver = new ChromeDriver(capabilities);
+```
 
 2. Use DesiredCapabilities directly:
 The ChromeOptions class uses DesiredCapabilities underneath. To use DesiredCapabilities directly, you need to know the name of the capability and the type of value it takes. See the full list further below.
 
-.. code-block:: java
+```java
+DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+capabilities.setCapability("chrome.binary", "/usr/lib/chromium-browser/chromium-browser");
+WebDriver driver = new ChromeDriver(capabilities);
+```
 
-   DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-   capabilities.setCapability("chrome.binary", "/usr/lib/chromium-browser/chromium-browser");
-   WebDriver driver = new ChromeDriver(capabilities);
+#### Common Use Cases
 
-Common Use Cases
-----------------
+*Use custom profile*
+By default chrome driver will run in a new temporary anonymous
+profile, there will be cases when you would want to run tests chrome
+driver using specific browser setting.  In those cases we can tell
+chrome driver to execute tests using a custom user profile.  If the
+latter, you can use the 'user-data-dir' Chrome command-line switch
+to tell Chrome which profile to use:
 
-Use custom profile
-  By default chrome driver will run in a new temporary anonymous
-  profile, there will be cases when you would want to run tests chrome
-  driver using specific browser setting.  In those cases we can tell
-  chrome driver to execute tests using a custom user profile.  If the
-  latter, you can use the 'user-data-dir' Chrome command-line switch
-  to tell Chrome which profile to use:
-
-  .. code-block:: java
-
-     ChromeOptions options = new ChromeOptions();
-     options.addArguments("user-data-dir=/path/to/your/custom/profile");
+```java
+ChromeOptions options = new ChromeOptions();
+options.addArguments("user-data-dir=/path/to/your/custom/profile");
+```
 
 Start chrome Maximized
 
-  .. code-block:: java
+```java
+ChromeOptions options = new ChromeOptions();
+options.addArguments("start-maximized");
+```
 
-     ChromeOptions options = new ChromeOptions();
-     options.addArguments("start-maximized");
+*Using a Chrome executable in a non-standard location*
+If the chrome browser is not installed in the default path, then you
+could specify the custom path where your chrome is installed and it
+shall be give as:
 
-Using a Chrome executable in a non-standard location
-  If the chrome browser is not installed in the default path, then you
-  could specify the custom path where your chrome is installed and it
-  shall be give as ,
-
-  .. code-block:: java
-
-     ChromeOptions options = new ChromeOptions();
-     options.setBinary("/path/to/other/chrome/binary");
+```java
+ChromeOptions options = new ChromeOptions();
+options.setBinary("/path/to/other/chrome/binary");
+```
 
 **List of recognized capabilities**
 
 * [proxy](http://code.google.com/p/selenium/wiki/DesiredCapabilities#Proxy_JSON_Object)
 * [loggingPrefs](http://code.google.com/p/selenium/wiki/DesiredCapabilities#JSON_object)
 
-This is a list of all the Chrome-specific desired capabilities, which all are under the chromeOptions dictionary. They should be used via the ChromeOptions class.
+This is a list of all the Chrome-specific desired capabilities, which all are
+under the chromeOptions dictionary. They should be used via the ChromeOptions
+class.
 
 +----------------+------------------------+-------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Name 		 | Type			  | Default 	| Description																								                                                                                                                                    |

@@ -1,5 +1,9 @@
-Record-and-Playback
-===================
+{
+  title: "Selenium IDE",
+  index: 0,
+}
+
+## Record-and-Playback
 
 currently Record and Playback is supported by Selenium Buidler
 

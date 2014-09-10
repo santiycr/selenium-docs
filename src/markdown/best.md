@@ -1,6 +1,7 @@
-==============
-Best Practices
-==============
+{
+  title: "Best Practices",
+  index: 0,
+}
 
 Functional testing is difficult to get right for many reasons. As if
 application state, complexity, and dependencies don't make testing
@@ -15,8 +16,7 @@ approach functional web page automation.
 This chapter records software design patterns popular amongst many of
 the users of Selenium that have proven successful over the years.
 
-Page Object Models
-==================
+## Page Object Models
 
 Page Object is a Design Pattern which has become popular in test
 automation for enhancing test maintenance and reducing code
@@ -35,8 +35,7 @@ such as locators (or their use if you’re using a UI map) and layout.*
 
 Rule of Thumb:
 
-Page object methods should return a value
------------------------------------------
+### Page object methods should return a value
 
 * If you submit a page and are redirected, it should return the new
   page object
@@ -44,8 +43,7 @@ Page object methods should return a value
 * If you click submit on login and you want to check to see if a user
   is logged in it should return True or False in a method
 
-Domain Specific Language
-========================
+## Domain Specific Language
 
 A domain specific language (DSL) is a system which provides the user
 an expressive means of solving a problem.  It allows a user to
@@ -66,8 +64,7 @@ the API simple and readable – they enable a repport between the
 developers and the stakeholders (users, product owners, business
 intelligence specialists, etc.).
 
-Benefits
---------
+### Benefits
 
 * *Readable*: Business stake holders can understand it.
 * *Writable*: Easy to write – avoids unnecessary duplication.
@@ -76,34 +73,33 @@ Benefits
 * *Maintainable*: By leaving the implementation details out of test
    cases, you are well-insulated against changes to the AUT.
 
-Java
-----
+### Java
 
 Here is an example of a reasonable DSL method in Java.  For brevity's
 sake, it assumes the `driver` object is pre-defined and available to
 the method.
 
-.. code-block:: java
+```java
+/**
+* Takes a username and password, fills out the fields, and clicks "login"
+* @returns An instance of the AccountPage
+*/
+public AccountPage loginAsUser(String username, String password) {
+  driver.findElement(By.id("loginField")).clear();
+  driver.findElement(By.id("loginField")).sendKeys(testData);
 
-   /**
-    * Takes a username and password, fills out the fields, and clicks "login"
-    * @returns An instance of the AccountPage
-    */
-   public AccountPage loginAsUser(String username, String password) {
-       driver.findElement(By.id("loginField")).clear();
-       driver.findElement(By.id("loginField")).sendKeys(testData);
+  //Fill out the password field. The locator we're using is "By.id", and we should have it
+  // defined elsewhere in the class
+  driver.findElement(By.id("password")).clear();
+  driver.findElement(By.id("password")).sendKeys();
 
-       //Fill out the password field. The locator we're using is "By.id", and we should have it
-       // defined elsewhere in the class
-       driver.findElement(By.id("password")).clear();
-       driver.findElement(By.id("password")).sendKeys();
+  //Click the login button, which happens to have the id "submit"
+  driver.findElement(By.id("submit")).click();
 
-       //Click the login button, which happens to have the id "submit"
-       driver.findElement(By.id("submit")).click();
-
-       //Create and return a new instance of the AccountPage (via the built-in Selenium PageFactory)
-       return PageFactory.newInstance(AccountPage.class);
-   }
+  //Create and return a new instance of the AccountPage (via the built-in Selenium PageFactory)
+  return PageFactory.newInstance(AccountPage.class);
+}
+```
 
 This method completely abstracts the concepts of input fields,
 buttons, clicking, and even pages from your test code. Using this
@@ -111,19 +107,19 @@ approach, all your tester has to do is call this method. This gives
 you a maintenance advantage: if the login fields ever changed, you
 would only ever have to change this method--not your tests.
 
-.. code-block:: java
+```java
+public void loginTest() {
+  loginAsUser("cbrown", "cl0wn3");
 
-   public void loginTest() {
-       loginAsUser("cbrown", "cl0wn3");
+  //now that we're logged in, do some other stuff--since we used a DSL to support our testers, it's
+  // as easy as choosing from available methods
+  do.something();
+  do.somethingElse();
+  Assert.assertTrue("Something should have been done!", something.wasDone();
 
-       //now that we're logged in, do some other stuff--since we used a DSL to support our testers, it's
-       // as easy as choosing from available methods
-       do.something();
-       do.somethingElse();
-       Assert.assertTrue("Something should have been done!", something.wasDone();
-
-       //Note that we still haven't referred to a button or web control anywhere in this script...
-   }
+  //Note that we still haven't referred to a button or web control anywhere in this script...
+}
+```
 
 It bears repeating: One of your primary goals should be writing an
 API that allows your tests to address *the problem at hand, and NOT
@@ -134,8 +130,7 @@ the user wants to DO, and the things they want to KNOW. The tests
 should not concern themselves with HOW the UI requires you to go
 about it.
 
-Generating Application State
-============================
+## Generating Application State
 
 Selenium should not be used to prepare a test case.  All repetitive
 actions, and prepration for a test case should be done through other
@@ -147,15 +142,13 @@ cookie inbrowser object).  Also, creating methods to pre-load data for
 testing should not be done using Selenium.  As mentioned previously,
 existing APIs should be leveraged to create data for the AUT.
 
-Mock External Services
-======================
+## Mock External Services
 
 Eliminating the dependencies on external services will greatly improve
 the speed and stability of your tests.
 
 
-Improved Reporting
-==================
+## Improved Reporting
 
 Selenium is not designed to report on the status of test cases
 run. Taking advantage of the built-in reporting capabilities of unit
@@ -172,14 +165,12 @@ Python:
   - HTML: https://nose.readthedocs.org/en/latest/plugins/cover.html?highlight=html%20reports
 
 
-Avoid Sharing State
-===================
+## Avoid Sharing State
 
 TODO: Add paragraph here.
 
 
-Consider Using a Fluent API
-===========================
+## Consider Using a Fluent API
 
 Martin Fowler coined the term "Fluent API".  Selenium already
 implements something like this in their *FluentWait* class which is
@@ -187,78 +178,76 @@ meant as an alternative to the standard *Wait* class.  You could
 enable the Fluent API design pattern in your page object and then
 query the Google search page with a code snippet like this one:
 
-.. code-block:: java
-
-   driver.get( "http://www.google.com/webhp?hl=en&tab=ww" );
-   GoogleSearchPage gsp = new GoogleSearchPage();
-   gsp.withFluent().setSearchString().clickSearchButton();
+```java
+driver.get( "http://www.google.com/webhp?hl=en&tab=ww" );
+GoogleSearchPage gsp = new GoogleSearchPage();
+gsp.withFluent().setSearchString().clickSearchButton();
+```
 
 The Google page object class with this fluent behavior might look like
 this:
 
-.. code-block:: java
+```java
+public class GoogleSearchPage extends LoadableComponent<GoogleSearchPage> {
 
-   public class GoogleSearchPage extends LoadableComponent<GoogleSearchPage> {
+  public class GSPFluentInterface {
 
-       public class GSPFluentInterface {
+    private GoogleSearchPage gsp;
 
-           private GoogleSearchPage gsp;
+    public GSPFluentInterface(GoogleSearchPage googleSearchPage) {
+      gsp = googleSearchPage;
+    }
 
-           public GSPFluentInterface(GoogleSearchPage googleSearchPage) {
-               gsp = googleSearchPage;
-           }
+    public GSPFluentInterface clickSearchButton() {
+      gsp.searchButton.click();
+      return this;
+    }
 
-           public GSPFluentInterface clickSearchButton() {
-               gsp.searchButton.click();
-               return this;
-           }
+    public GSPFluentInterface setSearchString( String sstr ) {
+      clearAndType( gsp.searchField, sstr );
+      return this;
+    }
 
-           public GSPFluentInterface setSearchString( String sstr ) {
-               clearAndType( gsp.searchField, sstr );
-               return this;
-           }
+  }
 
-       }
+  private GSPFluentInterface gspfi;
+  @FindBy(id = "gbqfq") private WebElement searchField;
+  @FindBy(id = "gbqfb") private WebElement searchButton;
 
-       private GSPFluentInterface gspfi;
-       @FindBy(id = "gbqfq") private WebElement searchField;
-       @FindBy(id = "gbqfb") private WebElement searchButton;
+  public GoogleSearchPage() {
+    gspfi = new GSPFluentInterface( this );
+    this.get(); // if load() fails, calls isLoaded() until page is finished loading
+    PageFactory.initElements(driver, this); // initialize WebElements on page
+  }
 
-       public GoogleSearchPage() {
-           gspfi = new GSPFluentInterface( this );
-           this.get(); // if load() fails, calls isLoaded() until page is finished loading
-           PageFactory.initElements(driver, this); // initialize WebElements on page
-       }
+  public GSPFluentInterface withFluent() {
+    return gspfi;
+  }
 
-       public GSPFluentInterface withFluent() {
-           return gspfi;
-       }
+  public void clickSearchButton() {
+    searchButton.click();
+  }
 
-       public void clickSearchButton() {
-           searchButton.click();
-       }
+  public void setSearchString( String sstr ) {
+    clearAndType( searchField, sstr );
+  }
 
-       public void setSearchString( String sstr ) {
-           clearAndType( searchField, sstr );
-       }
+  @Override
+  protected void isLoaded() throws Error {
+    Assert.assertTrue("Google search page is not yet loaded.", isSearchFieldVisible() );
+  }
 
-       @Override
-       protected void isLoaded() throws Error {
-           Assert.assertTrue("Google search page is not yet loaded.", isSearchFieldVisible() );
-       }
+  @Override
+  protected void load() {
+    if ( isSFieldPresent ) {
+      Wait<WebDriver> wait = new WebDriverWait( driver, 3 );
+      wait.until( visibilityOfElementLocated( By.id("gbqfq") ) ).click();
+    }
+  }
+}
+```
 
-       @Override
-       protected void load() {
-           if ( isSFieldPresent ) {
-               Wait<WebDriver> wait = new WebDriverWait( driver, 3 );
-               wait.until( visibilityOfElementLocated( By.id("gbqfq") ) ).click();
-           }
-       }
-
-   }
-
-Fresh browser per test
-======================
+## Fresh browser per test
 
 Start each test from a clean known state.  Ideally spin up a new
 virtual machine for each test.  If spinning up a new virtual machine
@@ -272,5 +261,4 @@ FirefoxProfile profile = new FirefoxProfile(new File("pathToFirefoxProfile"));
 WebDriver driver = new FirefoxDriver(profile);
 ```
 
-Unique test accounts
---------------------
+### Unique test accounts

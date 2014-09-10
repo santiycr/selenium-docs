@@ -1,8 +1,4 @@
-.. _index:
-
-=======================================
-The Selenium Browser Automation Project
-=======================================
+# The Selenium Browser Automation Project
 
 Selenium is an umbrella project for various tools and libraries that
 enable automation of web browsers.  Amongst other things it provides
@@ -15,15 +11,15 @@ available under the :ref:`Apache 2.0 license <license>`.
 
 Here is one of the simplest Selenium instructions you can make:
 
-.. code-block:: python
+```python
+from selenium import webdriver
 
-   from selenium import webdriver
-
-   driver = webdriver.Firefox()
-   driver.get("http://google.com/?hl=en")
-   search_box = driver.find_element_by_id("q")
-   search_box.send_keys("cheese")
-   search_box.submit()
+driver = webdriver.Firefox()
+driver.get("http://google.com/?hl=en")
+search_box = driver.find_element_by_id("q")
+search_box.send_keys("cheese")
+search_box.submit()
+```
 
 After you've installed Selenium and run this program you will see the
 browser navigate to the search engine and enter “cheese” into the
@@ -36,8 +32,7 @@ as a test automation tool and to scale simple tests like this to run
 in large, distributed environments on multiple browsers, under several
 different operating systems.
 
-Getting Started
-===============
+## Getting Started
 
 If you are new to Selenium, we have a few resources that can help you
 get up to speed right away.
@@ -49,8 +44,7 @@ get up to speed right away.
 
 .. _narrative_documentation:
 
-Narrative Documentation
-=======================
+## Narrative Documentation
 
 Narrative documentation in chapter form explaining how to use Selenium
 in detail, from bottom up.
@@ -70,8 +64,7 @@ in detail, from bottom up.
    drivers
    java_support
 
-Front Matter
-============
+## Front Matter
 
 .. toctree::
    :maxdepth: 1

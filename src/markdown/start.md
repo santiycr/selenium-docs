@@ -1,6 +1,7 @@
-==============================
-Getting Started with WebDriver
-==============================
+{
+  title: "Getting Started with WebDriver",
+  index: 0,
+}
 
 Selenium supports automation of all the major browsers in the market
 through the use of *WebDriver*.  WebDriver is an API and protocol that
@@ -23,8 +24,7 @@ automation.
 
 More details about drivers can be found in the :doc:`drivers`.
 
-Consumer Browsers
-=================
+## Consumer Browsers
 
 The Selenium framework officially supports the following browsers:
 
@@ -42,8 +42,7 @@ The Selenium framework officially supports the following browsers:
 | Safari            | Selenium   | 5.1 and newer      |
 +-------------------+------------+--------------------+
 
-Specialized browsers
-====================
+## Specialized browsers
 
 There are also a set of specialized browsers out there typically used
 in development environments.  We can make use of some of these
@@ -58,19 +57,17 @@ for the following specialized drivers:
 | HtmlUnitDriver  | Headless browser emulator backed by Rhino.     | Selenium               |
 +-----------------+------------------------------------------------+------------------------+
 
-Locating Elements
-=================
+## Locating Elements
 
-Locating One Element
---------------------
+### Locating One Element
 
 One of the most fundamental techniques to learn when using WebDriver is
 how to find elements on the page. WebDriver offers a number of built-in selector
 types, amongst them finding an element by its ID attribute:
 
-.. code-block:: java
-
-   WebElement cheese = driver.findElement(By.id("cheese"));
+```java
+WebElement cheese = driver.findElement(By.id("cheese"));
+```
 
 As seen in the example, locating elements in WebDriver is done on the
 `WebDriver` instance object.  The `findElement(By)` method returns
@@ -84,10 +81,10 @@ Once you have have a reference to a web element that's been "found", you
 can narrow the scope of your search by using the same call on that object
 instance:
 
-.. code-block:: java
-
-   WebElement cheese = driver.findElement(By.id("cheese"));
-   WebElement cheddar = cheese.findElement(By.id("cheddar"));
+```java
+WebElement cheese = driver.findElement(By.id("cheese"));
+WebElement cheddar = cheese.findElement(By.id("cheddar"));
+```
 
 You can do this because both the *WebDriver* and *WebElement* types
 implement the `SearchContext
@@ -112,24 +109,23 @@ specific locator: WebDriver supports looking up elements
 by CSS locators, allowing us to combine the two previous locators into
 one search:
 
-.. code-block:: java
+```java
+driver.findElement(By.cssSelector("#cheese #cheddar"));
+```
 
-   driver.findElement(By.cssSelector("#cheese #cheddar"));
-
-Locating Multiple Elements
---------------------------
+### Locating Multiple Elements
 
 It's possible that the document we are working with may turn have an
 ordered list of the cheese we like the best:
 
-.. code-block:: html
-
-   <ol id="cheese">
-     <li id="cheddar">…</li>
-     <li id="brie">…</li>
-     <li id="rochefort">…</li>
-     <li id="camembert">…</li>
-   </ul>
+```html
+<ol id="cheese">
+  <li id="cheddar">…</li>
+  <li id="brie">…</li>
+  <li id="rochefort">…</li>
+  <li id="camembert">…</li>
+</ul>
+```
 
 Since more cheese is undisputably better, and it would be cumbersome
 to have to retrieve each of the items individually, a superior
@@ -139,12 +135,11 @@ elements. If only one element is found, it will still return a
 collection (of one element). If no elements match the locator, an
 empty list will be returned.
 
-.. code-block:: java
+```java
+List<WebElement> muchoCheese = driver.findElements(By.cssSelector("#cheese li"));
+```
 
-   List<WebElement> muchoCheese = driver.findElements(By.cssSelector("#cheese li"));
-
-Element Selection Strategies
-----------------------------
+### Element Selection Strategies
 
 There are eight different built-in element location strategies in WebDriver:
 
@@ -161,8 +156,7 @@ There are eight different built-in element location strategies in WebDriver:
 | xpath             | Locates elements matching an XPath expression                                                        |
 +-------------------+------------------------------------------------------------------------------------------------------+
 
-Tips On Using Selectors
------------------------
+### Tips On Using Selectors
 
 In general, if HTML ID's are available, unique, and consistently
 predictable, they are the preferred method for locating an element on
@@ -189,33 +183,31 @@ readable as possible.  Asking WebDriver to traverse the DOM structure
 is an expensive operation, and the more you can narrow the scope of
 your search, the better.
 
-Performing Actions on the AUT
-=============================
+## Performing Actions on the AUT
 
 You can set an element's text using the sendKeys method as follows:
 
-.. code-block:: java
-
-   String name = "Charles";
-   driver.findElement(By.name("name")).sendKeys(name);
+```java
+String name = "Charles";
+driver.findElement(By.name("name")).sendKeys(name);
+```
 
 Some web application use javascript libraries to add drag-and-drop
 functionality. The following is a basic example of dragging one
 element onto another element:
 
-.. code-block:: java
+```java
+WebElement source = driver.findElement(By.id("source"));
+WebElement target = driver.findElement(By.id("target"));
+new Actions(driver).dragAndDrop(source, target).build().perform();
+```
 
-   WebElement source = driver.findElement(By.id("source"));
-   WebElement target = driver.findElement(By.id("target"));
-   new Actions(driver).dragAndDrop(source, target).build().perform();
-
-Clicking on an element
-----------------------
+### Clicking on an element
 
 You can click on an element using the click method:
 
-.. code-block:: java
-
-   driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+```java
+driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+```
 
 .. _GhostDriver project: https://github.com/detro/ghostdriver

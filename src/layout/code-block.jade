@@ -1,0 +1,10 @@
+//- Code block template providing a hidden raw code block for copying purposes
+//- and an auth button to populate credentials
+.button-container
+  if lang
+    button.btn.btn-default.clipboard(data-clipboard-target="code-#{codeBlockNum}")
+      span.fa.fa-clipboard
+    //- Contains whitespace-preserved code block for copying purpsoses
+    .hidden(id="code-#{codeBlockNum}")
+      = code
+  != result

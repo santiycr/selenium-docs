@@ -1,0 +1,8 @@
+//- Template for rendering headers using extracted markdown data
+.relative
+  //- Offsets header to be below navbar when direct-linked
+  .heading-anchor(id="#{escapedText}")
+#{headerLevel}.header(data-id="#{escapedText}")
+  a.anchor(href="##{escapedText}")
+    span.fa.fa-link
+  !=text

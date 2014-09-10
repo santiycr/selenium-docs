@@ -1,9 +1,9 @@
-===============
-Worst Practices
-===============
+{
+  title: "Worst Practices",
+  index: 0,
+}
 
-Captchas
-========
+## Captchas
 
 CAPTCHA, short for *Completely Automated Public Turing test to tell
 Computers and Humans Apart*, are explicitly designed to prevent
@@ -13,11 +13,9 @@ around CAPTCHA checks:
   * Disable CAPTCHAs in your test environments
   * Add a hook to allow tests to bypass the CAPTCHA
 
-File Downloads
-==============
+## File Downloads
 
-HTTP Response Codes
-===================
+## HTTP Response Codes
 
 For some browser configurations in Selenium RC, Selenium acted as a
 proxy between the browser and the site being automated.  This meant
@@ -56,8 +54,7 @@ response codes.  Additionally, not every browser makes the response
 codes available to WebDriver, so opting to use a proxy allows you to
 have a solution that works for every browser.
 
-Gmail, Email, and Facebook Logins
-=================================
+## Gmail, Email, and Facebook Logins
 
 For multiple reasons logging into sites like Gmail and Facebook using
 WebDriver is not recommended. Aside from being against the usage terms
@@ -78,8 +75,7 @@ test increases the risk of your test failing because it makes your
 test longer. A general rule of thumb is that longer tests are more
 fragile and unreliable.
 
-Performance Testing
-===================
+## Performance Testing
 
 Performance testing using Selenium and WebDriver is generally not
 advised. Not because it is incapable but because it is not optimised
@@ -111,5 +107,6 @@ suggestions.
 
 Example (open source) packages to use are: Jmeter ?
 
-Link Spidering
-==============
+## Link Spidering
+
+TODO

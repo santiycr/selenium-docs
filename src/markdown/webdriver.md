@@ -1,5 +1,7 @@
-WebDriver
-=========
+{
+  title: "WebDriver",
+  index: 0,
+}
 
 The biggest change in Selenium recently has been the inclusion of the
 WebDriver API.  Driving a browser natively as a user would either
@@ -19,8 +21,7 @@ Selenium 1.0 + WebDriver = Selenium 2.0
 * It drives the browser much more effectively and over comes the limitations of Selenium 1.x which affected our functional test coverage, like the file upload or download, pop-ups and dialogs barrier
 * WebDriver overcomes the limitation of Selenium Rc's Single Host origin policy
 
-Driver Requirements
--------------------
+### Driver Requirements
 
 Through WebDriver, Selenium supports all major browsers on the market
 such as Chrom(ium), Firefox, Internet Explorer, Opera, and Safari.
@@ -169,8 +170,7 @@ driver = Selenium::WebDriver.for :opera
 
 #### PhantomJS
 
-Browser Launching and Manipulation
-----------------------------------
+### Browser Launching and Manipulation
 <!-- #codeExamples -->
 <!-- Remember to cover profile and extensions here -->
 
@@ -200,8 +200,7 @@ require "selenium-webdriver"
 driver = Selenium::WebDriver.for :internet_explorer
 ```
 
-Waits (implicit & explicit)
----------------------------
+### Waits (implicit & explicit)
 Waiting is having the automated task execution elapse a certain amount of time before continuing with the next step.
 
 ### Implicit Wait
@@ -213,14 +212,14 @@ An explicit waits is code you define to wait for a certain condition to occur be
 #### Expected Conditions
 There are some common conditions that are frequently come across when automating web browsers.
 
-.. code-block:: ruby
+```ruby
+require "selenium-webdriver"
+driver = Selenium::WebDriver.for :firefox
 
-   require "selenium-webdriver"
-   driver = Selenium::WebDriver.for :firefox
-
-   # element is clickable
-   wait = Selenium::WebDriver::Wait.new(:timeout => 10)
-   wait.until { driver.find_element(:id => "your_element").click }
+# element is clickable
+wait = Selenium::WebDriver::Wait.new(:timeout => 10)
+wait.until { driver.find_element(:id => "your_element").click }
+```
 
 ### Fluent Wait
 
@@ -233,12 +232,12 @@ One approach is to use FluentWait and a Predicate available with Selenium2. The 
 The ImplicitWait will tell the webDriver to poll the DOM for a certain duration when trying to find the element, this will be useful when certain elements on the webpage will not be available immediately and needs some time to load.
 By default it ill take the value to 0, for the life of the WebDriver object instance through out the test script.
 
-.. code-block:: java
-
-   WebDriver driver = new FirefoxDriver();
-   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-   driver.get("http://somedomain/url_that_delays_loading");
-   WebElement myDynamicElement = driver.findElement(By.id("myDynamicElement"));
+```java
+WebDriver driver = new FirefoxDriver();
+driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+driver.get("http://somedomain/url_that_delays_loading");
+WebElement myDynamicElement = driver.findElement(By.id("myDynamicElement"));
+```
 
 * Explicit Waits
 
@@ -247,12 +246,12 @@ to occur before proceeding further in the code. Which is more similar
 to the Thread.sleep().  We can combine the use of Expected Conditions
 to accomplish wait Without using any hard delay.
 
-.. code-block:: java
-
-   WebDriver driver = new FirefoxDriver();
-   driver.get("http://somedomain/url_that_delays_loading");
-   WebElement myDynamicElement = (new WebDriverWait(driver, 10))
-     .until(ExpectedConditions.presenceOfElementLocated(By.id("myDynamicElement")));
+```java
+WebDriver driver = new FirefoxDriver();
+driver.get("http://somedomain/url_that_delays_loading");
+WebElement myDynamicElement = (new WebDriverWait(driver, 10))
+  .until(ExpectedConditions.presenceOfElementLocated(By.id("myDynamicElement")));
+```
 
 * FluentWait
 
@@ -263,41 +262,39 @@ User may configure the wait to ignore specific types of exceptions
 whilst waiting, such as NoSuchElementExceptions when searching for an
 element on the page.
 
-.. code-block:: java
+```java
+// Waiting 30 seconds for an element to be present on the page, checking
+// for its presence once every 5 seconds.
+Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+    .withTimeout(30, SECONDS)
+    .pollingEvery(5, SECONDS)
+    .ignoring(NoSuchElementException.class);
 
-   // Waiting 30 seconds for an element to be present on the page, checking
-   // for its presence once every 5 seconds.
-   Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-       .withTimeout(30, SECONDS)
-       .pollingEvery(5, SECONDS)
-       .ignoring(NoSuchElementException.class);
+WebElement foo = wait.until(new Function<WebDriver, WebElement>() {
+  public WebElement apply(WebDriver driver) {
+    return driver.findElement(By.id("foo"));
+  }
+});
+```
 
-   WebElement foo = wait.until(new Function<WebDriver, WebElement>() {
-     public WebElement apply(WebDriver driver) {
-       return driver.findElement(By.id("foo"));
-     }
-   });
+```java
+FluentWait<By> fluentWait = new FluentWait<By>(By.tagName("TEXTAREA"));
+fluentWait.pollingEvery(100, TimeUnit.MILLISECONDS);
+fluentWait.withTimeout(1000, TimeUnit.MILLISECONDS);
+fluentWait.until(new Predicate<By>() {
+  public boolean apply(By by) {
+    try {
+      return browser.findElement(by).isDisplayed();
+    } catch (NoSuchElementException ex) {
+      return false;
+    }
+  }
+});
+browser.findElement(By.tagName("TEXTAREA")).sendKeys("text to enter");
+```
 
-.. code-block:: java
-
-    FluentWait<By> fluentWait = new FluentWait<By>(By.tagName("TEXTAREA"));
-        fluentWait.pollingEvery(100, TimeUnit.MILLISECONDS);
-        fluentWait.withTimeout(1000, TimeUnit.MILLISECONDS);
-        fluentWait.until(new Predicate<By>() {
-            public boolean apply(By by) {
-                try {
-                    return browser.findElement(by).isDisplayed();
-                } catch (NoSuchElementException ex) {
-                    return false;
-                }
-            }
-        });
-        browser.findElement(By.tagName("TEXTAREA")).sendKeys("text to enter");
-
-Support Classes
----------------
+### Support Classes
 <!-- #codeExamples -->
 
-HTTP Proxies
-------------
+### HTTP Proxies
 <!-- #codeExamples -->

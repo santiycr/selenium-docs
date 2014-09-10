@@ -1,12 +1,11 @@
-============
-Introduction
-============
+{
+  title: "Introduction",
+  index: 0,
+}
 
-The Selenium Project and Tools
-==============================
+## The Selenium Project and Tools
 
-Selenium controls web browsers
-------------------------------
+### Selenium controls web browsers
 
 Selenium is a toolset for web browser automation that uses the best
 techniques available to remotely control browser instances and emulate
@@ -30,8 +29,7 @@ The Selenium project's goal is to make this reality by providing users
 with tools and documentation to not only control browsers, but to
 make it easy to scale and deploy such grids.
 
-One Interface to Rule Them All
-------------------------------
+### One Interface to Rule Them All
 
 One of the project's guiding principles is to support a common
 interface for all (major) browser technologies.  Web browsers are
@@ -46,8 +44,7 @@ This allows you to write several lines of code to perform a
 complicated workflow, but these same lines will execute on Firefox,
 Internet Explorer, Chrome, and all other supported browsers.
 
-Who Uses Selenium
------------------
+### Who Uses Selenium
 
 Many of the most important companies in the world have adopted
 Selenium for their browser-based testing, often replacing years-long
@@ -64,8 +61,7 @@ community, so that the project can continue to keep up with emerging
 technologies and remain the dominant platform for function test
 automation.
 
-History
--------
+### History
 
 When Selenium 1 released over N years ago it was out of the necessity
 to reduce time spent manually verifying consistent behaviour in the
@@ -93,8 +89,7 @@ Recently this work has evolved into a W3C standardization process
 where the goal is to turn the WebDriver component in Selenium into a
 *de jeur* remote control library for browsers.
 
-On Test Automation
-==================
+## On Test Automation
 
 First, start by asking yourself whether or not you really need to use
 a browser.  Odds are good that, at some point, if you're working on a
@@ -132,8 +127,7 @@ a user's perspective.  So in other words, whilst functional tests may
 be expensive to run, they also encompass large business-critical
 portions at one time.
 
-Testing Requirements
---------------------
+### Testing Requirements
 
 As mentioned before, Selenium tests can be expensive to run.  To what
 extent depends on the browser you're running the tests against, but
@@ -147,8 +141,7 @@ systems they run on will quickly become a non-trival undertaking.
 
 
 
-Let's start with an example:
-----------------------------
+### Let's start with an example:
 
 Larry has written a web site which allows users to order their own
 custom unicorns.
@@ -208,17 +201,17 @@ forms to be submitted, etc.
 Ideally, you can address this set-up phase in one line of code, which
 will execute before any browser is launched:
 
-.. code-block:: java
+```java
+// Create a user who has read-only permissions--they can configure a unicorn, but they do not have payment
+// information set up, nor do they have administrative privileges.
+// At the time the user is created, its email address and password are randomly generated--you don't even need to know them
+User user = UserFactory.createCommonUser(); //This method is defined elsewhere
 
-    // Create a user who has read-only permissions--they can configure a unicorn, but they do not have payment
-    // information set up, nor do they have administrative privileges.
-    // At the time the user is created, its email address and password are randomly generated--you don't even need to know them
-    User user = UserFactory.createCommonUser(); //This method is defined elsewhere
-
-    // Log in as this user
-    // Logging in on this site takes you to your personal "My Account" page, so the AccountPage object
-    // is returned by the loginAs method, allowing you to then perform actions from the AccountPage
-    AccountPage accountPage = loginAs(user.getEmail(), user.getPassword());
+// Log in as this user
+// Logging in on this site takes you to your personal "My Account" page, so the AccountPage object
+// is returned by the loginAs method, allowing you to then perform actions from the AccountPage
+AccountPage accountPage = loginAs(user.getEmail(), user.getPassword());
+```
 
 As you can imagine, the UserFactory can be extended to provide methods
 such as "createAdminUser()", and "createUserWithPayment()". The point
@@ -247,28 +240,28 @@ tests!__ You want to write your code like the user trying to solve
 their problem. Here is one way of doing this (continuing from the
 previous example):
 
-.. code-block:: java
+```java
+//The Unicorn is a top-level Object--it has attributes, which are set here. This only stores the values, it does not
+// fill out any web forms or interact with the browser in any way
+Unicorn sparkles = new Unicorn("Sparkles", UnicornColors.PURPLE, UnicornAccessories.SUNGLASSES, UnicornAdornments.STAR_TATTOOS);
 
-    //The Unicorn is a top-level Object--it has attributes, which are set here. This only stores the values, it does not
-    // fill out any web forms or interact with the browser in any way
-    Unicorn sparkles = new Unicorn("Sparkles", UnicornColors.PURPLE, UnicornAccessories.SUNGLASSES, UnicornAdornments.STAR_TATTOOS);
+//Since we're already "on" the account page, we have to use it to get to the actual
+// place where you configure unicorns. Calling the "Add Unicorn" method takes us there
+AddUnicornPage addUnicornPage = accountPage.addUnicorn();
 
-    //Since we're already "on" the account page, we have to use it to get to the actual
-    // place where you configure unicorns. Calling the "Add Unicorn" method takes us there
-    AddUnicornPage addUnicornPage = accountPage.addUnicorn();
-
-    //Now that we're on the AddUnicornPage, we will pass the "sparkles" object to its createUnicorn() method. This method will
-    // take Sparkles' attributes, fill out the form, and click submit
-    UnicornConfirmationPage unicornConfirmationPage= addUnicornPage.createUnicorn(sparkles);
+//Now that we're on the AddUnicornPage, we will pass the "sparkles" object to its createUnicorn() method. This method will
+// take Sparkles' attributes, fill out the form, and click submit
+UnicornConfirmationPage unicornConfirmationPage= addUnicornPage.createUnicorn(sparkles);
+```
 
 Now that you've configured your unicorn, you need to move on to step
 3: making sure it actually worked.
 
-.. code-block:: java
-
-    //The exists() method from UnicornConfirmationPage will take the Sparkles object--a specification of the attributes
-    // you want to see, and compare them with the fields on the page
-    Assert.assertTrue("Sparkles should have been created, with all attributes intact", unicornConfirmationPage.exists(sparkles);
+```java
+//The exists() method from UnicornConfirmationPage will take the Sparkles object--a specification of the attributes
+// you want to see, and compare them with the fields on the page
+Assert.assertTrue("Sparkles should have been created, with all attributes intact", unicornConfirmationPage.exists(sparkles);
+```
 
 Note that the tester still hasn't done anything but talk about
 unicorns in this code--no buttons, no locators, no browser
@@ -296,8 +289,7 @@ unicorn. Ideally you'll be able to create and account and
 pre-configure a unicorn via the API or database. Then all you have to
 do is log in as the user, locate Sparkles, and add her to the cart.
 
-Types Of Testing
-================
+## Types Of Testing
 
 TODO: Add paragraphs about acceptance testing, performance testing,
 load testing, regression testing, test driven development, and/or
@@ -306,8 +298,7 @@ behavior
 driven development (JBehave, Capybara, & Robot Framework), with how
 they relate to Selenium.
 
-About These Docs
-================
+## About These Docs
 
 These docs, like the code itself, are maintained 100% by volunteers
 within the Selenium community. Many have been using it since its

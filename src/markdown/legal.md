@@ -1,6 +1,7 @@
-==========================
-Copyright and Attributions
-==========================
+{
+  title: "Copyright and Attributions",
+  index: 0,
+}
 
 *The Selenium Documentation*
 
@@ -16,14 +17,12 @@ person or entity with respect to any loss or damages arising from the
 information contained in this book.  No patent liability is assumed
 with respect to the use of the information contained herein.
 
-Attributions
-============
+## Attributions
 
 Contributors:
   .. include:: authors.rst
 
-HTML Version and Source Code
-============================
+## HTML Version and Source Code
 
 An HTML version of this documentation is freely available from
 http://seleniumhq.org/docs/.
@@ -36,8 +35,7 @@ https://code.google.com/p/selenium/source/checkout.
 
 .. _license:
 
-License
-=======
+## License
 
 All code and documentation originating from the Selenium project is
 licensed under the Apache 2.0 license, with the `Software Freedom

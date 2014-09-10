@@ -1,0 +1,75 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    <meta property="og:site_name" content="Selenium Docs"/>
+    <meta name="twitter:card", content="summary">
+    <meta name="twitter:site", content="@seleniumhq">
+    <meta name="twitter:creator", content="@seleniumhq">
+    <meta name="twitter:domain", content="newdocs.seleniumhq.org">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    link(href="#{data.baseUrl}vendor/bootstrap/dist/css/bootstrap.min.css", rel="stylesheet")
+    link(href="#{data.baseUrl}styles/navbar.css", rel="stylesheet")
+    link(href="#{data.baseUrl}styles/monokai.css", rel="stylesheet")
+    link(href="#{data.baseUrl}styles/main.css", rel="stylesheet")
+    block head
+      title= "Selenium Docs"
+  body
+    nav.navbar.navbar-default.navbar-fixed-top(role='navigation' data-swiftype-index='false')
+      .navbar-header
+        a.navbar-brand(href='http://seleniumhq.org' title='Go to Selenium HQ home page')
+          img.selenium-logo-img(src="/images/selenium-logo.png")
+          = "The New Selenium Docs"
+        button.navbar-toggle(type='button' data-toggle='collapse' data-target='#collapsible-navbar')
+          i.fa.fa-bars
+      #collapsible-navbar.collapse.navbar-collapse
+        .nav.navbar-nav.navbar-right
+            #search-dropdown
+            .nav-search
+              form.navbar-form.search-form(role='search')
+                .form-group
+                  input.form-control#st-search-input(type='text' placeholder='Search...')
+        .side-nav
+          .scroll-nav
+            ul.sidenav.nav.navbar-nav#nav-post-list
+              each postMember, index in posts
+                - var isCurrentPost = post && postMember.title === posts[post.currentIndex].title
+                li.post-list-item(class= isCurrentPost ? 'active': '' id="post-item-#{postMember.title}")
+                  a(href="#{postMember.url}")
+                    span.post-title-item
+                      =postMember.title
+                  if isCurrentPost
+                    ul.post-headings(id="post-#{index}-nav")
+                      if postMember.headings
+                        each heading in postMember.headings
+                          li.post-heading(class="level-#{heading.level}")
+                            if isCurrentPost
+                              a(href="#{heading.href}")
+                                != heading.title
+                            else
+                              a(href="#{postMember.url}#{heading.href}")
+                                != heading.title
+    .container.content
+      block content
+    script(src="#{data.baseUrl}vendor/jquery/dist/cdn/jquery-2.1.1.min.js" type="text/javascript")
+    script(src="#{data.baseUrl}vendor/bootstrap/dist/js/bootstrap.min.js" type="text/javascript")
+    script(src="#{data.baseUrl}vendor/zeroclipboard/ZeroClipboard.min.js" type="text/javascript")
+    block scripts
+    script.
+      var Swiftype = window.Swiftype || {};
+        (function() {
+          Swiftype.key = 'ukxyU9p4zoFFsoeZgYVu';
+
+          //- Search results are on new page(/search/)
+          Swiftype.renderStyle = 'new_page';
+          Swiftype.resultPageURL = '/search/';
+
+          //- Attach to specified element to account for position:absolute offset
+          Swiftype.attachElement = '#search-dropdown'
+          /** DO NOT EDIT BELOW THIS LINE **/
+          var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+          script.src = "//s.swiftypecdn.com/embed.js";
+          var entry = document.getElementsByTagName('script')[0];
+          document.getElementsByTagName('script')[0].parentNode.insertBefore(script, entry);
+      }());
+    script(src="#{data.baseUrl}scripts/main.js" type="text/javascript")

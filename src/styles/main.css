@@ -1,0 +1,36 @@
+img.selenium-logo-img {
+  margin-top: -10px;
+}
+.content {
+  margin-top: 50px;
+  margin-left: 250px;
+}
+.side-nav {
+  width: 250px;
+  position: fixed;
+  background: #526188;
+  z-index: 0;
+  top: 50px;
+  bottom: 0px;
+}
+.side-nav li {
+  width: 100%;
+}
+@media (max-width: 992px) {
+  .side-nav {
+      float: left;
+      background: inherit;
+      position: relative;
+      top: 0;
+      width: unset;
+  }
+  .content {
+    margin-left: 0px;
+  }
+}
+.side-nav .scroll-nav {
+  position: relative;
+  height: 100%;
+  overflow: auto;
+  top: 0px;
+}

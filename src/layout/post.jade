@@ -1,0 +1,29 @@
+extends base
+block head
+  title #{post.title} · Selenium Docs
+  <meta name="twitter:title", content="Selenium #{post.title}">
+  <meta property="og:title" content="Selenium #{post.title}"/>
+  <meta property='st:title' content='#{post.title}' />
+  if post.description
+    <meta name="twitter:description", content="#{post.description}">
+    meta(name="description", content="#{post.description}")
+    <meta property="og:description" content="#{post.description}" />
+  if post.image
+    <meta property="og:image" content="/images/selenium.png" />
+    <meta property="st:image" content="#{post.image}">
+block content
+  div(class="#{post.title}")
+  .edit-doc-link
+    .link-block.edit-on-github.visible-lg
+      a#edit-on-github-link.tooltip-anchor(href='https://github.com/saucelabs/docs/edit/master/#{post.sourcePath.slice(5)}' title='Improve this doc on GitHub' data-placement='left' data-container='body' data-toggle="tooltip" target="_blank")
+        i.fa.fa-edit
+    .link-block.submit-issue-on-github.visible-lg
+      a#submit-issue-on-github-link.tooltip-anchor(href='https://github.com/saucelabs/docs/issues/new/?title=Issue with #{post.title}' title='Submit an issue on GitHub' data-placement='left' data-container='body' data-toggle="tooltip" target="_blank")
+        i.fa.fa-bug
+  .post-head.group
+    h1.post-title
+      if post.image
+        img.title-img(src="#{post.image}")
+        | #{' '}
+      = post.title
+  .post-body.markdown!= post.content
