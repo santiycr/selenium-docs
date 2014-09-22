@@ -1,6 +1,7 @@
 {
   title: "Driver Idiosyncrasies",
-  index: 0,
+  category: "narrative",
+  index: 9,
 }
 
 ## Shared capabilities

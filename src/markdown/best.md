@@ -1,6 +1,7 @@
 {
   title: "Best Practices",
-  index: 0,
+  category: "narrative",
+  index: 5,
 }
 
 Functional testing is difficult to get right for many reasons. As if

@@ -1,6 +1,7 @@
 {
   title: "Getting Started with WebDriver",
-  index: 0,
+  category: "narrative",
+  index: 2,
 }
 
 Selenium supports automation of all the major browsers in the market

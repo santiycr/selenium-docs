@@ -1,6 +1,7 @@
 {
   title: "Worst Practices",
-  index: 0,
+  category: "narrative",
+  index: 6,
 }
 
 ## Captchas

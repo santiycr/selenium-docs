@@ -1,6 +1,7 @@
 {
   title: "Quick Tour",
-  index: 0,
+  category: "getting-started",
+  index: 12,
 }
 
 ## First

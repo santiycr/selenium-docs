@@ -1,5 +1,7 @@
-## {
-  index: 0,
+{
+  title: "Selenium Grid",
+  category: "narrative",
+  index: 7,
 }
 
 Selenium Grid is a smart proxy server that allows Selenium tests
@@ -24,51 +26,51 @@ manage your infrastructure and might not suite your specific needs.
 
 ### Pros
 
-Scale
+#### Scale
 
-  Scale by distributing tests on several machines using parallel
-  execution.
+Scale by distributing tests on several machines using parallel
+execution.
 
-Central
+#### Central
 
-  Manage multiple environments from a central point, making it easy
-  to run the tests against a large combination of browsers and
-  operating systems.
+Manage multiple environments from a central point, making it easy
+to run the tests against a large combination of browsers and
+operating systems.
 
-Minimize
+#### Minimize
 
-  Minimize the maintenance time for the grid by allowing you to
-  implement custom hooks to leverage a virtual infrastructure of
-  registered nodes.
+Minimize the maintenance time for the grid by allowing you to
+implement custom hooks to leverage a virtual infrastructure of
+registered nodes.
 
-Cross-Platform
+#### Cross-Platform
 
-  If your tests are running on one particular platform, by using a
-  node on another platform you effectively have cross-platform
-  testing.
+If your tests are running on one particular platform, by using a
+node on another platform you effectively have cross-platform
+testing.
 
-Smart
+#### Smart
 
-  Grid can route commands to a certain version of a browser if you
-  have two or more nodes registered, each pointing to a different
-  version of the browser binary.
+Grid can route commands to a certain version of a browser if you
+have two or more nodes registered, each pointing to a different
+version of the browser binary.
 
 ### Cons
 
-Prompted input
+#### Prompted input
 
-  You have no capabilities for user input if your tests want to
-  prompt for user input whereas you wuold if your tests ran locally.
+You have no capabilities for user input if your tests want to
+prompt for user input whereas you wuold if your tests ran locally.
 
-Maintainability
+#### Maintainability
 
-  You also need to maintain the health of other computer systems
-  which run your nodes.
+You also need to maintain the health of other computer systems
+which run your nodes.
 
-Limited power
+#### Limited power
 
-  Certain third party libraries have limitations that prevent them
-  from being used in conjuction with Grid.
+Certain third party libraries have limitations that prevent them
+from being used in conjuction with Grid.
 
 ## What is a Hub and Node?
 
@@ -108,12 +110,11 @@ nodes are shown here running on the same machine, but of course you
 can copy the selenium-server-standalone to multiple machines.
 
 The selenium-server-standalone package includes the hub, WebDriver,
-and legacy RC needed to run the grid.  ant is not required anymore.
-You can download the selenium-server-standalone-.jar from
+and legacy RC needed to run the grid.
+You can download the selenium-server-standalone.jar from
 http://code.google.com/p/selenium/downloads/list.
 
-Step 1: Start the Hub
-~~~~~~~~~~~~~~~~~~~~~
+#### Step 1: Start the Hub
 
 The hub is the central point that will receive test requests and
 distribute them the the right nodes.  The distribution is done on
@@ -168,8 +169,7 @@ step 2.
  "platform": "WINDOWS"}
 ```
 
-Step 2: Start the nodes
-~~~~~~~~~~~~~~~~~~~~~~~
+#### Step 2: Start the nodes
 
 Regardless on whether you want to run a grid with new WebDriver
 functionality, or a grid with Selenium 1 RC functionality, or both
@@ -186,22 +186,26 @@ them.
 
 ###### Configuration of Node With Options
 
-As mentioned, for backwards compatibility “wd” and “rc” roles are
+As mentioned, for backwards compatibility "wd" and "rc" roles are
 still a valid subset of the “node” role.  But those roles limit the
-types of remote connections to their corresponding API, while “node”
+types of remote connections to their corresponding API, while "node"
 allows both RC and WebDriver remote connections.
 
-Passing JVM properties (using the _-D_ flag) on the command line
+Passing JVM properties (using the `-D` flag) on the command line
 as well, and these will be picked up and propagated to the nodes::
 
-    -Dwebdriver.chrome.driver=chromedriver.exe
+```bash
+-Dwebdriver.chrome.driver=chromedriver.exe
+```
 
 ###### Configuration of Node With JSON
 
 You can also start grid nodes that are configured with a JSON
 configuration file::
 
-    java.exe -jar selenium-server-standalone.jar -role node -nodeConfig node1Config.json -Dwebdriver.chrome.driver=chromedriver.exe
+```bash
+java.exe -jar selenium-server-standalone.jar -role node -nodeConfig node1Config.json -Dwebdriver.chrome.driver=chromedriver.exe
+```
 
 And here is an example of a _nodeConfig.json_ file:
 

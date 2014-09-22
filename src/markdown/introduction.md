@@ -1,5 +1,6 @@
 {
   title: "Introduction",
+  category: "narrative",
   index: 0,
 }
 

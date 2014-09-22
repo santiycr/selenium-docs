@@ -1,6 +1,7 @@
 {
   title: "The Java Support Package",
-  index: 0,
+  category: "narrative",
+  index: 10,
 }
 
 ### Working With Colours

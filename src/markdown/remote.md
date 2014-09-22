@@ -1,6 +1,7 @@
 {
   title: "Remote WebDriver",
-  index: 0,
+  category: "narrative",
+  index: 4,
 }
 
 You can use Remote webdriver the same way you would use webdriver

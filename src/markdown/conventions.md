@@ -1,6 +1,7 @@
 {
   title: "Typographical Conventions",
-  index: 0,
+  category: "meta",
+  index: 11,
 }
 
 TODO

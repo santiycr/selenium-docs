@@ -22,6 +22,7 @@ module.exports = function (grunt) {
         layout: 'src/layout/post.jade',
         url: '/:title/',
         options: {
+          pageSrc: 'src/pages',
           data: templateData,
           sortFunction: function (a, b) {
             return a.index - b.index;
@@ -61,6 +62,14 @@ module.exports = function (grunt) {
           }
         }
       }
+    },
+    committers: {
+      options: {
+        sort: 'commits',
+        email: true,
+        nomerges: true,
+        output: 'dist/AUTHORS.md'
+      },
     },
     jshint: {
       all: [
@@ -141,6 +150,7 @@ module.exports = function (grunt) {
         files: [
           'src/markdown/**',
           'src/layout/**',
+          'src/pages/**'
         ],
         tasks: ['pages']
       },
@@ -203,7 +213,7 @@ module.exports = function (grunt) {
       },
       scriptsAndStyles: {
         options: {
-            ContentEncoding: 'gzip'
+          ContentEncoding: 'gzip'
         },
         files: [
           {expand: true, cwd: 'dist', src: ['styles/**/*', 'scripts/**/*', 'vendor/**/*'], dest: '', params: {
@@ -216,6 +226,7 @@ module.exports = function (grunt) {
   });
   grunt.registerTask('build', [
     'clean',
+    'committers',
     'pages',
     'copy',
   ]);

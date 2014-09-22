@@ -1,6 +1,7 @@
 {
   title: "Selenium IDE",
-  index: 0,
+  category: "narrative",
+  index: 8,
 }
 
 ## Record-and-Playback

@@ -1,6 +1,7 @@
 {
   title: "WebDriver",
-  index: 0,
+  category: "narrative",
+  index: 3,
 }
 
 The biggest change in Selenium recently has been the inclusion of the
