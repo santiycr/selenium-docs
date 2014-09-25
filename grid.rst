@@ -184,7 +184,7 @@ file to start the nodes::
 
     java -jar selenium-server-standalone.jar -role node -hub http://localhost:4444/grid/register
 
-The port defaults to 5555 if not specified whenever the _-role_
+The port defaults to 5555 if not specified whenever the *-role*
 option is provided and is not hub.  You can run multiple nodes on
 one machine but if you do so, you need to be aware of your systems
 memory resources and problems with screenshots if your tests take
@@ -197,7 +197,7 @@ still a valid subset of the “node” role.  But those roles limit the
 types of remote connections to their corresponding API, while “node”
 allows both RC and WebDriver remote connections.
 
-Passing JVM properties (using the _-D_ flag) on the command line
+Passing JVM properties (using the *-D* flag) on the command line
 as well, and these will be picked up and propagated to the nodes::
 
     -Dwebdriver.chrome.driver=chromedriver.exe
